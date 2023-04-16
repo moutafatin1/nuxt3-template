@@ -1,11 +1,7 @@
-import { UnAuthorizedException } from "~/server/exceptions";
+import { protectRouteAndGetCurrentUser } from "~/server/utils/session";
 
 export default defineEventHandler(async (event) => {
-  const user = event.context.user;
-
-  if (!user) {
-    throw UnAuthorizedException();
-  }
+  const user = protectRouteAndGetCurrentUser(event);
 
   return user;
 });

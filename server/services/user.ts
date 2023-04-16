@@ -1,12 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import { SignInDto } from "../api/auth/signin.post";
 import { SignUpDto } from "../api/auth/signup.post";
+import { prisma } from "../db";
 import {
   UnAuthorizedException,
   UserAlreadyExistsException,
 } from "../exceptions";
-
-const prisma = new PrismaClient();
 
 export function getUserByUsername(username: string) {
   return prisma.user.findUnique({
@@ -47,7 +45,6 @@ export async function createUser(user: SignUpDto) {
   if (existingUser) {
     throw UserAlreadyExistsException();
   }
-
   const { passwordHash, ...userWithoutPassword } = await prisma.user.create({
     data: {
       username: user.username,

@@ -1,5 +1,6 @@
 import cookieSignature from "cookie-signature";
 import { H3Event } from "h3";
+import { UnAuthorizedException } from "../exceptions";
 import { getUserById } from "../services";
 
 export type Session = {
@@ -44,4 +45,14 @@ export async function getCurrentUser(event: H3Event) {
 
   const { passwordHash, ...userWithoutPassword } = user;
   return userWithoutPassword;
+}
+
+export function protectRouteAndGetCurrentUser(event: H3Event) {
+  const user = event.context.user;
+
+  if (!user) {
+    throw UnAuthorizedException();
+  }
+
+  return user;
 }

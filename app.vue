@@ -22,6 +22,6 @@ const testSubmit = handleSubmit((data) => {
     class="mx-6 mt-16 flex max-w-2xl flex-col gap-4 md:mx-auto"
   >
     <InputField name="test" placeholder="test value..." />
-    <Button>Submit</Button>
+    <Button> <Icon name="heroicons:circle-stack" class="mr-2" /> Submit</Button>
   </form>
 </template>

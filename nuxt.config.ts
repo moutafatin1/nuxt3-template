@@ -13,4 +13,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+  typescript: {
+    shim: false,
+  },
 });

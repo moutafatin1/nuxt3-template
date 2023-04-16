@@ -1,7 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { SignInDto } from "../api/auth/signin.post";
-import { UnAuthorizedException } from "../exceptions";
-import { verifyPassword } from "../utils/security";
+import { SignUpDto } from "../api/auth/signup.post";
+import {
+  UnAuthorizedException,
+  UserAlreadyExistsException,
+} from "../exceptions";
 
 const prisma = new PrismaClient();
 
@@ -34,6 +37,23 @@ export async function verifySignIn({ username, password }: SignInDto) {
   }
 
   const { passwordHash, ...userWithoutPassword } = user;
+
+  return userWithoutPassword;
+}
+
+export async function createUser(user: SignUpDto) {
+  const existingUser = await getUserByUsername(user.username);
+
+  if (existingUser) {
+    throw UserAlreadyExistsException();
+  }
+
+  const { passwordHash, ...userWithoutPassword } = await prisma.user.create({
+    data: {
+      username: user.username,
+      passwordHash: await hashPassword(user.password),
+    },
+  });
 
   return userWithoutPassword;
 }

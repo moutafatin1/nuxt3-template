@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/cookie-signature": "^1.1.0",
     "autoprefixer": "^10.4.14",
     "nuxt": "^3.4.1",
     "nuxt-icon": "^0.3.3",
@@ -26,7 +27,9 @@
   "dependencies": {
     "@prisma/client": "^4.12.0",
     "@vee-validate/zod": "^4.8.5",
+    "argon2": "^0.30.3",
     "clsx": "^1.2.1",
+    "cookie-signature": "^1.0.7",
     "tailwind-merge": "^1.12.0",
     "vee-validate": "^4.8.5",
     "zod": "^3.21.4"

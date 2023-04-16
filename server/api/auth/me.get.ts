@@ -1,11 +1,10 @@
+import { UnAuthorizedException } from "~/server/exceptions";
+
 export default defineEventHandler(async (event) => {
   const user = event.context.user;
 
   if (!user) {
-    throw createError({
-      statusCode: 401,
-      message: "Unauthorized",
-    });
+    throw UnAuthorizedException();
   }
 
   return user;

@@ -18,7 +18,10 @@
     "tailwindcss": "^3.3.1"
   },
   "dependencies": {
+    "@vee-validate/zod": "^4.8.5",
     "clsx": "^1.2.1",
-    "tailwind-merge": "^1.12.0"
+    "tailwind-merge": "^1.12.0",
+    "vee-validate": "^4.8.5",
+    "zod": "^3.21.4"
   }
 }

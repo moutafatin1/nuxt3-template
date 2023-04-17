@@ -2,7 +2,7 @@ import { SignInDto } from "../api/auth/signin.post";
 import { SignUpDto } from "../api/auth/signup.post";
 import { prisma } from "../db";
 import {
-  UnAuthorizedException,
+  BadCredentialsException,
   UserAlreadyExistsException,
 } from "../exceptions";
 
@@ -25,13 +25,13 @@ export function getUserById(id: string) {
 export async function verifySignIn({ username, password }: SignInDto) {
   const user = await getUserByUsername(username);
   if (!user) {
-    throw UnAuthorizedException();
+    throw BadCredentialsException();
   }
 
   const isValid = await verifyPassword(password, user.passwordHash);
 
   if (!isValid) {
-    throw UnAuthorizedException();
+    throw BadCredentialsException();
   }
 
   const { passwordHash, ...userWithoutPassword } = user;

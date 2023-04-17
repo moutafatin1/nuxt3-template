@@ -30,6 +30,7 @@
     "argon2": "^0.30.3",
     "clsx": "^1.2.1",
     "cookie-signature": "^1.0.7",
+    "superjson": "^1.12.2",
     "tailwind-merge": "^1.12.0",
     "vee-validate": "^4.8.5",
     "zod": "^3.21.4"

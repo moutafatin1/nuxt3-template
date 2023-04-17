@@ -11,3 +11,10 @@ export function UserAlreadyExistsException() {
     message: "User already exists, try with a different username",
   });
 }
+
+export function BadCredentialsException() {
+  return createError({
+    statusCode: 401,
+    message: "Invalid credentials",
+  });
+}

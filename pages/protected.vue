@@ -8,6 +8,6 @@ definePageMeta({
 
 <template>
   Hello {{ user?.username }} - CreatedAt :
-  {{ user?.createdAt.toDateString() }}
+  {{ user?.createdAt.getFullYear() }}
   <Button @click="logout" variant="danger">Logout</Button>
 </template>

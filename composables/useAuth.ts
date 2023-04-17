@@ -1,7 +1,5 @@
-import superjson from "superjson";
 import { SignInDto } from "~/server/api/auth/signin.post";
 import { SignUpDto } from "~/server/api/auth/signup.post";
-import { CurrentUser } from "~/types";
 export default () => {
   const currentUser = useCurrentUser();
 
@@ -38,11 +36,7 @@ export default () => {
     }
 
     if (data.value) {
-      currentUser.value = {
-        ...data.value,
-        createdAt: new Date(data.value.createdAt),
-        updatedAt: new Date(data.value.updatedAt),
-      };
+      currentUser.value = convertToObjWithDates(data.value);
 
       await navigateTo("/protected");
     }
@@ -62,10 +56,11 @@ export default () => {
     if (!currentUser.value) {
       const { data, error } = await useFetch("/api/auth/me", {
         headers: useRequestHeaders(["cookie"]) as HeadersInit,
-        transform: (value) =>
-          superjson.parse<CurrentUser>(value as unknown as string),
       });
-      currentUser.value = data.value;
+
+      if (data.value) {
+        currentUser.value = convertToObjWithDates(data.value);
+      }
     }
     return currentUser;
   }
@@ -76,3 +71,5 @@ export default () => {
     me,
   };
 };
+
+// create a function that convert object with string ISO dates to object with Date type with typescript

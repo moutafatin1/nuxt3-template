@@ -11,13 +11,18 @@ export default () => {
       body: {
         ...signinDto,
       },
-      transform: (value) =>
-        superjson.parse<CurrentUser>(value as unknown as string),
     });
     if (error.value) {
       console.dir(error.value); // TODO: Handle Error
     }
-    currentUser.value = data.value;
+
+    if (data.value) {
+      currentUser.value = {
+        ...data.value,
+        createdAt: new Date(data.value.createdAt),
+        updatedAt: new Date(data.value.updatedAt),
+      };
+    }
     await navigateTo("/protected");
   }
 
@@ -27,13 +32,17 @@ export default () => {
       body: {
         ...signupDto,
       },
-      transform: (value) =>
-        superjson.parse<CurrentUser>(value as unknown as string),
     });
     if (error.value) {
       console.dir(error.value); // TODO: Handle Error
-    } else {
-      currentUser.value = data.value;
+    }
+
+    if (data.value) {
+      currentUser.value = {
+        ...data.value,
+        createdAt: new Date(data.value.createdAt),
+        updatedAt: new Date(data.value.updatedAt),
+      };
 
       await navigateTo("/protected");
     }

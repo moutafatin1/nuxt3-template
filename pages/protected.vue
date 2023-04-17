@@ -7,6 +7,7 @@ definePageMeta({
 </script>
 
 <template>
-  Hello {{ user?.username }}
+  Hello {{ user?.username }} - CreatedAt :
+  {{ user?.createdAt.toDateString() }}
   <Button @click="logout" variant="danger">Logout</Button>
 </template>

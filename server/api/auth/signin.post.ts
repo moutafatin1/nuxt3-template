@@ -1,5 +1,6 @@
 import { verifySignIn } from "~/server/services";
 import { createUserSession } from "~/server/utils/session";
+import { CurrentUser } from "~/types";
 
 export type SignInDto = {
   username: string;

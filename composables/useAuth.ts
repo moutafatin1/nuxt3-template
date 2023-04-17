@@ -1,5 +1,6 @@
 import superjson from "superjson";
 import { SignInDto } from "~/server/api/auth/signin.post";
+import { SignUpDto } from "~/server/api/auth/signup.post";
 import { CurrentUser } from "~/types";
 export default () => {
   const currentUser = useCurrentUser();
@@ -13,12 +14,29 @@ export default () => {
       transform: (value) =>
         superjson.parse<CurrentUser>(value as unknown as string),
     });
-
     if (error.value) {
       console.dir(error.value); // TODO: Handle Error
     }
     currentUser.value = data.value;
     await navigateTo("/protected");
+  }
+
+  async function signup(signupDto: SignUpDto) {
+    const { data, error } = await useFetch("/api/auth/signup", {
+      method: "POST",
+      body: {
+        ...signupDto,
+      },
+      transform: (value) =>
+        superjson.parse<CurrentUser>(value as unknown as string),
+    });
+    if (error.value) {
+      console.dir(error.value); // TODO: Handle Error
+    } else {
+      currentUser.value = data.value;
+
+      await navigateTo("/protected");
+    }
   }
 
   async function logout() {
@@ -44,6 +62,7 @@ export default () => {
   }
   return {
     signin,
+    signup,
     logout,
     me,
   };

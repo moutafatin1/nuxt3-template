@@ -11,5 +11,5 @@ export default defineEventHandler(async (event) => {
 
   createUserSession(event, { userId: newUser.id });
 
-  return newUser;
+  return superjsonResponse(newUser);
 });

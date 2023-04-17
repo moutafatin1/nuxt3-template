@@ -4,7 +4,7 @@ import { useForm } from "vee-validate";
 import { z } from "zod";
 
 useHead({
-  title: "Sign In",
+  title: "Sign Up",
 });
 
 definePageMeta({
@@ -20,27 +20,27 @@ const { handleSubmit, handleReset } = useForm({
   ),
 });
 
-const { signin } = useAuth();
+const { signup } = useAuth();
 
 const onSubmit = handleSubmit(async (data) => {
-  await signin(data);
+  await signup(data);
 });
 </script>
 
 <template>
   <div class="mx-auto mt-24 max-w-sm p-4">
-    <h1 class="my-8 text-center text-5xl font-bold text-slate-700">Sign In</h1>
+    <h1 class="my-8 text-center text-5xl font-bold text-slate-700">Sign Up</h1>
     <form @submit="onSubmit" class="flex flex-col gap-4">
       <InputField name="username" placeholder="Username" />
       <InputField name="password" placeholder="Password" type="password" />
       <Button>Sign In</Button>
     </form>
     <p class="mt-1 text-center text-sm text-gray-500">
-      Don't have an account?
+      Already have an account?
       <NuxtLink
-        to="/signup"
+        to="/signin"
         class="font-medium text-indigo-600 transition hover:text-indigo-800 hover:underline"
-        >Sign Up</NuxtLink
+        >Sign In</NuxtLink
       >
     </p>
   </div>
